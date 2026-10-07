@@ -7,7 +7,7 @@ spring:
   cloud:
     gateway:
       routes:
-        -id: product-service-route
-        uri: lb://PRODUCT-SERVICE
-        predicates:
-          -Path=/products/**
+        - id: product-service-route
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/products/**
