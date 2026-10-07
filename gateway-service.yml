@@ -4,3 +4,10 @@ server:
 spring:
   application:
     name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        -id: product-service-route
+        uri: lb://PRODUCT-SERVICE
+        predicates:
+          -Path=/products/**
