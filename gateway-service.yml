@@ -6,8 +6,32 @@ spring:
     name: gateway-service
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+              - "http://localhost:4200"
+              - "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+            maxAge: 3600
+
       routes:
         - id: product-service-route
           uri: lb://PRODUCT-SERVICE
           predicates:
             - Path=/products/**
+
+# [/**] every url which is coming on gateway those rules will apply on that
+# allowedCredentials: later if we will send login cookies and session tokens from frontend then allows browser to send cookies/session credentials.
+# globalcors: decides which frontend is allowed to call gateway
+# allowedHeaders: frontend can send headers such as: Content-type, Authorization, * means allow all request headers
