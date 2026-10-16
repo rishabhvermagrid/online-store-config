@@ -18,3 +18,15 @@ resilience4j:
         ignore-exceptions:
           - feign.FeignException.NotFound
           - com.rishabh.store.product.exception.ProductUnavailableException
+
+  retry:
+    instances:
+      productDependencies:
+        max-attempt: 3
+        wait-duration: 500ms
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        #Dont waste retries on 404 or out of stock items:
+        ignore-exception:
+          - feign.FeignException.NotFound
+          - com.rishabh.store.product.exception.ProductUnavailableException
